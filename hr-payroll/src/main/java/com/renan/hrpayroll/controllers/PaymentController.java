@@ -1,5 +1,6 @@
 package com.renan.hrpayroll.controllers;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.renan.hrpayroll.entities.Payment;
 import com.renan.hrpayroll.services.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +17,18 @@ public class PaymentController {
     @Autowired
     private PaymentService paymentService;
 
+    @HystrixCommand(fallbackMethod = "getPaymentAlternative")
     @GetMapping(value = "/{workerId}/days/{days}")
-    public ResponseEntity<Payment> getPayment(@PathVariable long workerId, @PathVariable int days){
+    public ResponseEntity<Payment> getPayment(@PathVariable Long workerId, @PathVariable Integer days){
 
         Payment payment = paymentService.getPayment(workerId, days);
+        return ResponseEntity.ok(payment);
+
+    }
+
+    public ResponseEntity<Payment> getPaymentAlternative(Long workerId, Integer days){
+
+        Payment payment = new Payment("Renan", 400.00, days);
         return ResponseEntity.ok(payment);
 
     }
