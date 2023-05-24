@@ -23,7 +23,7 @@ public class WorkerController {
 
     private static Logger logger = LoggerFactory.getLogger(WorkerController.class);
 
-//    @Value("${test.config}")
+    @Value("${test.config}")
     private String testConfig;
 
     @Autowired
