@@ -5,6 +5,7 @@ import com.renan.hrworker.repositories.WorkerRepositorie;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,9 @@ public class WorkerController {
 
     private static Logger logger = LoggerFactory.getLogger(WorkerController.class);
 
+    @Value("${test.config}")
+    private String testConfig;
+
     @Autowired
     private Environment environment;
 
@@ -27,6 +31,11 @@ public class WorkerController {
     private WorkerRepositorie workerRepositorie;
 
 
+    @GetMapping(value = "/configs")
+    public ResponseEntity<Void> getConfigs(){
+        logger.info("Config = " + testConfig);
+        return ResponseEntity.noContent().build();
+    }
     @GetMapping
     public ResponseEntity<List<Worker>> listAllWorker(){
         List<Worker> workerList = workerRepositorie.findAll();
