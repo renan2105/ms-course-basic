@@ -1,7 +1,7 @@
 package com.renan.hrworker.controller;
 
 import com.renan.hrworker.entities.Worker;
-import com.renan.hrworker.repositories.WorkerRepositorie;
+import com.renan.hrworker.repositories.WorkerRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ public class WorkerController {
     private Environment environment;
 
     @Autowired
-    private WorkerRepositorie workerRepositorie;
+    private WorkerRepository workerRepository;
 
 
     @GetMapping(value = "/configs")
@@ -40,7 +40,7 @@ public class WorkerController {
     }
     @GetMapping
     public ResponseEntity<List<Worker>> listAllWorker(){
-        List<Worker> workerList = workerRepositorie.findAll();
+        List<Worker> workerList = workerRepository.findAll();
         return ResponseEntity.ok(workerList);
     }
 
@@ -55,7 +55,7 @@ public class WorkerController {
 
         logger.info("PORT = " + environment.getProperty("local.server.port"));
 
-        Worker worker = workerRepositorie.findById(id).get();
+        Worker worker = workerRepository.findById(id).get();
         return ResponseEntity.ok(worker);
     }
 
