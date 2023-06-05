@@ -23,8 +23,8 @@ public class WorkerController {
 
     private static Logger logger = LoggerFactory.getLogger(WorkerController.class);
 
-    @Value("${test.config}")
-    private String testConfig;
+//    @Value("${test.config}")
+//    private String testConfig;
 
     @Autowired
     private Environment environment;
@@ -35,7 +35,7 @@ public class WorkerController {
 
     @GetMapping(value = "/configs")
     public ResponseEntity<Void> getConfigs(){
-        logger.info("Config = " + testConfig);
+//        logger.info("Config = " + testConfig);
         return ResponseEntity.noContent().build();
     }
     @GetMapping
@@ -47,11 +47,11 @@ public class WorkerController {
     @GetMapping(value = "/{id}")
     public ResponseEntity<Worker> findWorkerById(@PathVariable Long id){
 
-        try {
-            Thread.sleep(3000L);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Thread.sleep(3000L);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 
         logger.info("PORT = " + environment.getProperty("local.server.port"));
 
